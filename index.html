@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Trắc Nghiệm GDQP & AN</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; }
+        .question-card { margin-bottom: 25px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background: #fafafa; }
+        .question-title { font-weight: bold; margin-bottom: 12px; color: #1a5276; }
+        .option { display: block; padding: 10px; margin: 6px 0; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; transition: 0.2s; }
+        .option:hover { background-color: #ebf5fb; }
+        .correct { background-color: #d4edda !important; border-color: #28a745 !important; font-weight: bold; color: #155724; }
+        .page-tag { float: right; font-size: 0.8em; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Luyện Tập Trắc Nghiệm GDQP & AN</h1>
+    <div id="quiz-container"></div>
+</div>
+
+<script>
+const questionsData = [
+    // Trang 1
+    { page: 1, q: "Lực lượng nào tiến hành bạo loạn lật đổ?", options: ["A. Lực lượng phản động hay lực lượng ly khai, đối lập trong nước hoặc cấu kết với nước ngoài", "B. Chủ nghĩa đế quốc và các thế lực phản động tiến hành", "C. Lực lượng ly khai, đối lập trong nước hoặc cấu kết với nước ngoài", "D. Lực lượng phản động nước ngoài hay lực lượng ly khai, đối lập trong nước hoặc cấu kết với bất mãn"], answer: 0 },
+    { page: 1, q: "Mục đích bạo loạn lật đổ là gì?", options: ["A. Nhằm gây rối loạn an ninh chính trị, trật tự an toàn xã hội hoặc lật đổ chính quyền ở địa phương hay Trung ương", "B. Nhằm xảy ra bạo loạn lật đổ có thể ở nhiều nơi, nhiều vùng của đất nước", "C. Xóa bỏ chế độ xã hội chủ nghĩa ở Việt Nam chuyển hóa sang chế độ tư bản chủ nghĩa, lệ thuộc phương Tây", "D. Dùng quân sự để răn đe và sẵn sàng can thiệp khi có điều kiện, thời cơ"], answer: 0 },
+    { page: 1, q: "Hình thức bạo loạn lật đổ?", options: ["A. Bạo loạn quân sự, bạo loạn vũ trang hoặc bạo loạn chính trị kết hợp với vũ trang", "B. Bạo loạn vũ trang hoặc bạo loạn chính trị kết hợp với vũ trang", "C. Bạo loạn chính trị, bạo loạn vũ trang, bạo loạn chính trị kết hợp với vũ trang", "D. Bạo loạn vũ lực, bạo loạn vũ trang hoặc bạo loạn chính trị kết hợp với vũ trang"], answer: 2 },
+    { page: 1, q: "Một trong những mục tiêu của chiến lược \"Diễn biến hòa bình\" chống phá Việt Nam?", options: ["A. Xóa bỏ vai trò, sức mạnh của nhân dân Việt Nam", "B. Xóa bỏ vai trò lãnh đạo của Đảng Cộng sản Việt Nam", "C. Xóa bỏ vai trò tổ chức của Quân đội nhân dân Việt Nam", "D. Xóa bỏ vai trò quản lý của Công an nhân dân Việt Nam"], answer: 1 },
+    { page: 1, q: "Một trong những mục tiêu của chiến lược \"Diễn biến hòa bình\" chống phá Việt Nam?", options: ["A. Chuyển hóa Việt Nam sang chế độ chủ nghĩa đế quốc, lệ thuộc phương Tây", "B. Xóa bỏ chế độ xã hội chủ nghĩa ở Việt Nam chuyển hóa sang chế độ tư bản chủ nghĩa, lệ thuộc phương Tây", "C. Xóa bỏ chế độ xã hội chủ nghĩa ở Việt Nam chuyển hóa sang chế độ chủ nghĩa cộng sản", "D. Chuyển hóa Việt Nam sang chế độ phong kiến, lệ thuộc phương Tây"], answer: 1 },
+    { page: 1, q: "Một trong những nội dung chủ yếu của chiến lược \"Diễn biến hòa bình\" chống phá Việt Nam?", options: ["A. Xóa bỏ vai trò quản lý của Quân đội nhân dân Việt Nam", "B. Chia rẽ tình đoàn kết hữu nghị giữa Việt Nam với Lào, Campuchia, Trung Quốc", "C. Phủ nhận vai trò lãnh đạo của Đảng trong lĩnh vực quốc phòng, an ninh và đối với lực lượng vũ trang", "D. Chống phá về chính trị tư tưởng, văn hóa"], answer: 3 },
+    { page: 1, q: "Một trong những nội dung chống phá trên lĩnh vực tư tưởng, văn hóa trong chiến lược \"Diễn biến hòa bình\" của các thế lực thù địch đối với cách mạng Việt Nam?", options: ["A. Xoá bỏ hệ tư tưởng của Nhà nước xã hội chủ nghĩa.", "B. Xoá bỏ nền tảng chủ nghĩa Mác- Lênin, tư tưởng Hồ Chí Minh.", "C. Xoá bỏ vai trò quản lý điều hành của Nhà nước xã hội chủ nghĩa.", "D. Xoá bỏ vai trò lãnh đạo của các tổ chức chính trị xã hội."], answer: 1 },
+    { page: 1, q: "Một trong những nội dung chống phá trên lĩnh vực tư tưởng, văn hóa trong chiến lược \"Diễn biến hòa bình\" của các thế lực thù địch đối với cách mạng Việt Nam?", options: ["A. Kích động đòi thực hiện chế độ \"đa nguyên chính trị, đa Đảng đối lập\"", "B. Từng bước làm mất vai trò chủ đạo của thành phần kinh tế nhà nước"], answer: 0 },
+
+    // Trang 2
+    { page: 2, q: "Một trong những nội dung chống phá trên lĩnh vực tư tưởng, văn hóa trong chiến lược \"Diễn biến hòa bình\" của các thế lực thù địch đối với cách mạng Việt Nam?", options: ["A. Lợi dụng những khó khăn ở những vùng đồng bào dân tộc ít người, những tồn tại do lịch sử để lại", "B. Điều chỉnh chính sách đối nội, đối ngoại theo hướng tăng cường hợp tác nhiều mặt để thâm nhập, thúc đẩy quá trình \"tự diễn biến\", \"tự chuyển hóa\"", "C. Lợi dụng xu thế mở rộng hợp tác quốc tế, du nhập những sản phẩm văn hoá đồi trụy, lối sống phương tây để kích động lối sống tư bản trong tầng lớp trẻ, thanh niên, sinh viên", "D. Xóa bỏ chế độ xã hội chủ nghĩa ở Việt Nam chuyển hóa sang chế độ chủ nghĩa đế quốc, kinh tế thị trường"], answer: 2 },
+    { page: 2, q: "Một trong những nội dung chống phá trên lĩnh vực quốc phòng, an ninh trong chiến lược \"Diễn biến hòa bình\" của các thế lực thù địch đối với cách mạng Việt Nam?", options: ["A. Lợi dụng những khó khăn ở những vùng đồng bào dân tộc ít người, chia rẽ quân đội với nhân dân", "B. Từng bước làm phai mờ bản chất giai cấp của Quân đội, Công an, làm cho quân nhân phai nhạt lý tưởng", "C. Phủ nhận vai trò lãnh đạo của Đảng trong lĩnh vực quốc phòng, an ninh và đối với lực lượng vũ trang", "D. Dùng vũ khí công nghệ cao để tấn công Việt Nam, phá hoại các cơ sở quân đội, trụ sở công an"], answer: 2 },
+    { page: 2, q: "Một trong những nội dung chống phá trên lĩnh vực quốc phòng, an ninh trong chiến lược \"Diễn biến hòa bình\" của các thế lực thù địch đối với cách mạng Việt Nam?", options: ["A. Kích động lôi kéo Quân đội, Công an, mua chuộc quân nhân, sĩ quan", "B. Tìm mọi cách hạ thấp uy tín, vai trò, trách nhiệm của Việt Nam trên trường quốc tế", "C. Chúng tìm mọi cách \"Phi chính trị hóa\", làm cho Quân đội, Công an xa rời mục tiêu chiến đấu.", "D. Xoá bỏ nền tảng chủ nghĩa Mác- Lênin, tư tưởng Hồ Chí Minh, đường lối của đảng"], answer: 2 },
+    { page: 2, q: "Một trong những nội dung chống phá trên lĩnh vực ngoại giao trong chiến lược \"Diễn biến hòa bình\" của các thế lực thù địch đối với cách mạng Việt Nam?", options: ["A. Tìm mọi cách hạ thấp uy tín của Việt Nam trên trường quốc tế", "B. Chia rẽ mối đoàn kết với các nước láng giềng, trong khu vực", "C. Thông qua mạng xã hội đẩy mạnh xâm nhập, tác động, phá hoại vai trò, uy tín của Việt Nam", "D. Xoá bỏ vai trò quản lý điều hành của Nhà nước xã hội chủ nghĩa."], answer: 3 },
+    { page: 2, q: "Một trong những nội dung chống phá trên lĩnh vực ngoại giao trong chiến lược \"Diễn biến hòa bình\" của các thế lực thù địch đối với cách mạng Việt Nam?", options: ["A. Chia rẽ tình đoàn kết hữu nghị giữa Việt Nam với Lào, Campuchia, Trung Quốc và các nước xã hội chủ nghĩa", "B. Làm mất uy tín, vai trò Việt Nam ở trong khu vực, quốc tế, trong các tổ chức, ngoài xã hội, trên internet", "C. Thông qua Internet, mạng xã hội đẩy mạnh xâm nhập, tác động, phá hoại vai trò, trách nhiệm, uy tín của Việt Nam", "D. Tiến hành hạ thấp uy tín, vai trò, trách nhiệm của Việt Nam trên trường quốc tế"], answer: 0 },
+    { page: 2, q: "Một trong những thủ đoạn trong chiến lược \"Diễn biến hòa bình\", bạo loạn lật đổ của các thế lực thù địch chống phá cách mạng Việt Nam hiện nay?", options: ["A. Thâm nhập, cài cắm gián điệp vào bộ máy chính quyền", "B. Dùng lực lượng phản động bên trong, bên ngoài can thiệp quân sự"], answer: 0 },
+
+    // Trang 3
+    { page: 3, q: "Một trong những thủ đoạn trong chiến lược \"Diễn biến hòa bình\", bạo loạn lật đổ của các thế lực thù địch chống phá cách mạng Việt Nam hiện nay?", options: ["A. Tiến hành hạ thấp uy tín, vai trò, trách nhiệm của Việt Nam trên trường quốc tế, trong khu vực", "B. Dùng tiền bạc mua chuộc, lôi kéo sinh viên", "C. Tăng cường thúc đẩy hoạt động \"xã hội dân sự\" tại Việt Nam để tạo \"kênh phản biện\" công khai chống lại các chủ trương, chính sách của Đảng, Nhà nước", "D. Chống phá về chính trị tư tưởng, văn hóa làm khâu đột phá, then chốt quyết định"], answer: 2 },
+    { page: 3, q: "Một trong những thủ đoạn trong chiến lược \"Diễn biến hòa bình\", bạo loạn lật đổ của các thế lực thù địch chống phá cách mạng Việt Nam hiện nay?", options: ["A. Thông qua Internet, mạng xã hội đẩy mạnh xâm nhập, tác động, hướng lái truyền thông Việt Nam", "B. Thành lập nhiều nhóm phản động công khai chống phá chính quyền", "C. Từng bước làm phai mờ bản chất giai cấp tư sản của Quân đội, Công an", "D. Du nhập những sản phẩm văn hoá đồi truy để chống phá về chính trị tư tưởng, văn hóa làm khâu đột phá, then chốt quyết định"], answer: 0 },
+    { page: 3, q: "Một trong những thủ đoạn trong chiến lược \"Diễn biến hòa bình\", bạo loạn lật đổ của các thế lực thù địch chống phá cách mạng Việt Nam hiện nay?", options: ["A. Thành lập nhiều nhóm phản động công khai chống phá chính quyền", "B. Tích cực \"đầu tư, kích cầu\" trên lĩnh vực giáo dục, đào tạo để \"chuyển hóa\" thế hệ trẻ Việt Nam", "C. Xoá bỏ vai trò quản lý điều hành của Nhà nước xã hội chủ nghĩa.", "D. Gây ra bạo loạn quân sự, bạo loạn vũ trang hoặc bạo loạn chính trị kết hợp với vũ trang"], answer: 1 },
+    { page: 3, q: "Một trong những quan điểm chỉ đạo của Đảng, Nhà nước về phòng chống \"Diễn biến hòa bình\", bạo loạn lật đổ?", options: ["A. Giữ vững sự lãnh đạo, vai trò cầm quyền của Đảng, chủ nghĩa Mác- Lênin, tư tưởng Hồ Chí Minh,", "B. Đấu tranh chống \"DBHB\" là một cuộc đấu tranh giai cấp, đấu tranh dân tộc gay go, quyết liệt, lâu dài và phức tạp trên mọi lĩnh vực", "C. Ngăn ngừa mọi âm mưu thủ đoạn chống phá của địch lợi dụng vấn đề nhạy cảm để chống phá, tăng cường cảnh giác với bọn cơ hội", "D. Làm tốt công tác giáo dục chính trị, tư tưởng cho đội ngũ cán bộ, viên chức Nhà nước và các ngành, các cấp"], answer: 1 },
+    { page: 3, q: "Một trong những quan điểm chỉ đạo của Đảng, Nhà nước về phòng chống \"Diễn biến hòa bình\", bạo loạn lật đổ?", options: ["A. Giữ vững sự ổn định chính trị của đất nước, sự lãnh đạo, vai trò cầm quyền của Đảng đối với toàn xã hội", "B. Làm tốt công tác giáo dục chính trị, tư tưởng cho đội ngũ cán bộ, viên chức Nhà nước và các ngành, các cấp", "C. Chống \"DBHB\" là cấp bách, hàng đầu trong các nhiệm vụ quốc phòng-an ninh hiện nay để bảo vệ vững chắc Tổ quốc XHCN", "D. Nâng cao nhận thức về âm mưu, thủ đoạn của các thế lực thù địch, nắm chắc mọi diễn biến không để bị động và bất ngờ"], answer: 0 },
+
+    // Trang 9
+    { page: 9, q: "Bờ biển Việt Nam dài bao nhiêu km?", options: ["A. 3.260 km", "B. 3.620 km", "C. 2.36 km", "D. 2.630 km"], answer: 0 },
+    { page: 9, q: "Lãnh hải có chiều rộng không vượt quá bao nhiêu hải lý tính từ đường cơ sở?", options: ["A. 12", "B. 13", "C. 14", "D. 15"], answer: 0 },
+    { page: 9, q: "Đâu là quần đảo của Việt Nam?", options: ["A. Hoàng Sa", "B. Khánh Hòa", "C. Đảo Lý Sơn", "D. An Bang"], answer: 0 },
+    { page: 9, q: "Đâu là quần đảo của Việt Nam?", options: ["A. Trường Sa", "B. An Thới", "C. Sơn Ca", "D. An Bang"], answer: 0 },
+
+    // Trang 10
+    { page: 10, q: "Việt Nam có biên giới quốc gia trên đất liền dài bao nhiêu km?", options: ["A. 4.550 km", "B. 4.450 km", "C. 5.450 km", "D. 6.550 km"], answer: 0 },
+    { page: 10, q: "Bờ biển nước ta nằm ở phía nào của Biển Đông?", options: ["A. Phía Tây của Biển Đông", "B. Phía Đông của Biển Đông", "C. Phía Nam của Biển Đông", "D. Phía Bắc của Biển Đông"], answer: 0 },
+    { page: 10, q: "Lãnh hải là gì?", options: ["A. Vùng biển có chiều rộng 24 hải lý tính từ đường cơ sở thẳng ra phía biển", "B. Vùng biển có chiều rộng 12 hải lý tính từ đường cơ sở thẳng ra phía biển", "C. Vùng biển có chiều rộng 12 hải lý tính từ đường cơ sở thông thường ra phía biển", "D. Vùng biển có chiều rộng 24 hải lý tính từ đường cơ sở thông thường ra phía biển"], answer: 1 },
+    { page: 10, q: "Hiện nay, Việt Nam đang thực hiện chủ quyền và quản lý bao nhiêu đảo tại quần đảo Trường Sa?", options: ["A. 20", "B. 21", "C. 22", "D. 23"], answer: 1 },
+
+    // Trang 11
+    { page: 11, q: "Hiệp ước hòa bình, hữu nghị và hợp tác giữa Việt Nam và Campuchia được ký khi nào?", options: ["A. 18/02/1979", "B. 18/02/1980", "C. 18/02/1981", "D. 18/02/1982"], answer: 0 },
+    { page: 11, q: "Việt Nam quản lý quần đảo Trường Sa gồm mấy đảo nổi và đảo chìm?", options: ["A. 10 đảo nổi và 12 đảo chìm", "B. 8 đảo nổi và 12 đảo chìm", "C. 9 đảo nổi và 12 đảo chìm", "D. 10 đảo nổi và 11 đảo chìm"], answer: 2 },
+    { page: 11, q: "Biên giới Việt Nam – Lào dài bao nhiêu km?", options: ["A. 2.067 km", "B. 2.706 km", "C. 2.607 km", "D. 2.076 km"], answer: 0 },
+    { page: 11, q: "Biên giới Việt Nam – Campuchia dài bao nhiêu km?", options: ["A. 1.137 km", "B. 1.373 km", "C. 1.173 km", "D. 1.731 km"], answer: 0 },
+
+    // Trang 15
+    { page: 15, q: "Tôn giáo là gì?", options: ["A. Là một hình thái ý thức xã hội, phản ánh hiện thực khách quan, theo quan niệm hoang đường, ảo tưởng phù hợp với tâm lý, hành vi của con người", "B. Là một trạng thái nhận thức xã hội, phản ánh hiện thực khách quan, theo quan niệm hoang đường, ảo tưởng phù hợp với tâm lý của con người", "C. Là hiện tượng xã hội tiêu cực, phải kiên quyết bài trừ, nhằm lành mạnh hóa đời sống tinh thần xã hội", "D. Là nhận thức con người còn hạn hẹp, mơ hồ về tự nhiên, xã hội, đồng thời quá trình nhận thức"], answer: 0 },
+    { page: 15, q: "Một trong những nguồn gốc của tôn giáo?", options: ["A. Nguồn gốc xã hội", "B. Nguồn gốc kinh tế - xã hội", "C. Nguồn gốc tình cảm", "D. Nguồn gốc nhân dân"], answer: 1 },
+    { page: 15, q: "Một trong những tính chất của tôn giáo?", options: ["A. Tính nhân quyền", "B. Tính chính trị", "C. Tính tín ngưỡng", "D. Tính dân chủ"], answer: 1 },
+
+    // Trang 20
+    { page: 20, q: "Có mấy tệ nạn xã hội phổ biến hiện nay?", options: ["A. 4", "B. 5", "C. 6", "D. 7"], answer: 0 },
+    { page: 20, q: "Trong các loại tệ nạn xã hội, tệ nạn nào thường dẫn đến tội phạm nghiêm trọng?", options: ["A. Tệ nạn mê tín, dị đoan.", "B. Tệ nạn mại dâm.", "C. Tệ nạn nghiện ma tuý.", "D. Tệ nạn cờ bạc."], answer: 2 },
+
+    // Trang 21
+    { page: 21, q: "Một trong những nội dung trách nhiệm của sinh viên trong phòng chống tệ nạn xã hội?", options: ["A. Tổ chức cho sinh viên các hoạt động vui chơi lành mạnh", "B. Vận động người thân, gia đình, bạn bè không tham gia các tệ nạn xã hội", "C. Tổ chức các hoạt động văn hóa văn nghệ, thể dục thể thao để thu hút sinh viên tham gia", "D. Phát hiện các trường hợp rủ rê lôi kéo sinh viên tham gia vào các tà đạo, các hoạt động tệ nạn xã hội."], answer: 0 },
+    { page: 21, q: "Một trong những nội dung trách nhiệm của sinh viên trong phòng chống tệ nạn xã hội?", options: ["A. Mê tín dị đoan là một biểu hiện của các hủ tục lạc hậu, tàn dư của xã hội cũ còn sót lại trong xã hội hiện nay", "B. Không có các hành vi mê tín dị đoan hoặc tham gia các hủ tục lạc hậu khác", "C. Xử lý nghiêm những phần tử lợi dụng mê tín dị đoan để trục lợi bất chính hoặc gây hậu quả nghiêm trọng trên địa bàn", "D. Phát hiện các trường hợp rủ rê lôi kéo sinh viên tham gia vào các tà đạo, các hoạt động tệ nạn xã hội."], answer: 1 }
+];
+
+function renderQuiz() {
+    const container = document.getElementById('quiz-container');
+    questionsData.forEach((data, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        
+        let html = `<span class="page-tag">Trang ${data.page}</span>`;
+        html += `<div class="question-title">Câu ${index + 1}: ${data.q}</div>`;
+        
+        data.options.forEach((opt, optIndex) => {
+            const isCorrect = optIndex === data.answer ? 'correct' : '';
+            html += `<div class="option ${isCorrect}">${opt}</div>`;
+        });
+        
+        card.innerHTML = html;
+        container.appendChild(card);
+    });
+}
+
+renderQuiz();
+</script>
+
+</body>
+</html>
